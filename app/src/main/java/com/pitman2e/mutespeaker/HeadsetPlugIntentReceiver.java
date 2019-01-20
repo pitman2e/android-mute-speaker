@@ -1,0 +1,43 @@
+package com.pitman2e.mutespeaker;
+
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.widget.Toast;
+
+public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
+    private static final String TAG = HeadsetPlugIntentReceiver.class.getSimpleName();
+    private static final int HEADSET_STATE_UNPLUGGED = 0;
+    private static final int HEADSET_STATE_PLUGGED = 1;
+
+    public static void registerIntent(Context context) {
+        IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        HeadsetPlugIntentReceiver receiver = new HeadsetPlugIntentReceiver();
+        context.registerReceiver(receiver, receiverFilter);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        switch (intent.getAction()) {
+            case Intent.ACTION_HEADSET_PLUG:
+                int headsetState = intent.getExtras().getInt("state");
+                switch (headsetState) {
+                    case HEADSET_STATE_UNPLUGGED:
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        Toast.makeText(context, "Headset unplugged", Toast.LENGTH_LONG).show();
+                        break;
+                    case HEADSET_STATE_PLUGGED:
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        Toast.makeText(context, "Headset plugged", Toast.LENGTH_LONG).show();
+                        break;
+                }
+                break;
+        }
+    }
+}
