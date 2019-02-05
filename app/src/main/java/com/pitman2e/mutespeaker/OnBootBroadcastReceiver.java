@@ -7,6 +7,8 @@ import android.content.Intent;
 public class OnBootBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        HeadsetStateService.startService(context);
+        if (Prefs.getIsEnableNotification(context)) {
+            HeadsetStateService.startService(context);
+        }
     }
 }

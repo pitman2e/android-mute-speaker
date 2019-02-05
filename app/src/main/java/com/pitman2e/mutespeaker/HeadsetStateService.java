@@ -13,13 +13,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.os.Handler;
 
-public class HeadsetStateService extends Service {
-    private static final int NOTIFICATION_ID = 1;
-    private static final String CHANNEL_NAME = "Mute Service Running";
+import com.pitman2e.mutespeaker.constant.NotificationID;
 
+public class HeadsetStateService extends Service {
     public static void startService(Context context) {
         Intent in = new Intent(context, HeadsetStateService.class);
         context.startService(in);
+    }
+
+    public static void stopService(Context context) {
+        Intent in = new Intent(context, HeadsetStateService.class);
+        context.stopService(in);
     }
 
     @Nullable
@@ -37,7 +41,7 @@ public class HeadsetStateService extends Service {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String NOTIFICATION_CHANNEL_ID = getPackageName();
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_NONE);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.getString(R.string.notification_mute_service_running), NotificationManager.IMPORTANCE_NONE);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -45,11 +49,11 @@ public class HeadsetStateService extends Service {
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             Notification notification = notificationBuilder.setOngoing(true).build();
-            startForeground(NOTIFICATION_ID, notification);
+            startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
         }
         else {
             Notification notification = new Notification.Builder(this).build();
-            startForeground(NOTIFICATION_ID, notification);
+            startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
         }
 
         super.onCreate();
@@ -58,5 +62,12 @@ public class HeadsetStateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+
+
+        super.onDestroy();
     }
 }

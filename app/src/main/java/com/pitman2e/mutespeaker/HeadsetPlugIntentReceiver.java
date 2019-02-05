@@ -1,7 +1,5 @@
 package com.pitman2e.mutespeaker;
 
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +20,10 @@ public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!Prefs.getIsEnableNotification(context)) {
+            return;
+        }
+
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
         switch (intent.getAction()) {

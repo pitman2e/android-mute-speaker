@@ -5,11 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private Switch mSwitchEnableNotification;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,16 +34,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        //HeadsetPlugIntentReceiver receiver = new HeadsetPlugIntentReceiver();
-        //registerReceiver(receiver, receiverFilter);
+        mSwitchEnableNotification = findViewById(R.id.switch_enable_notification);
+        boolean isEnableNotification = Prefs.getIsEnableNotification(this);
+        mSwitchEnableNotification.setChecked(isEnableNotification);
+        mSwitchEnableNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Prefs.setIsEnableNotification(buttonView.getContext(), isChecked);
 
-        HeadsetStateService.startService(this);
+                if (isChecked) {
+                    HeadsetStateService.startService(buttonView.getContext());
+                } else {
+                    HeadsetStateService.stopService(buttonView.getContext());
+                }
+            }
+        });
+
     }
 }
