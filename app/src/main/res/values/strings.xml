@@ -3,5 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="notification_mute_service_running">Mute Service Running</string>
+    <string name="notification_mute_service_enabled">Mute Service Enabled</string>
+    <string name="notification_mute_service_disabled">Mute Service Disabled</string>
     <string name="notification_channel_miscellaneous">Miscellaneous</string>
+    <string name="notification_action_enable">Enable</string>
+    <string name="notification_action_disable">Disable</string>
 </resources>

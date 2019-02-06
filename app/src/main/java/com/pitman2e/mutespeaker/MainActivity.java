@@ -1,8 +1,15 @@
 package com.pitman2e.mutespeaker;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -47,15 +54,12 @@ public class MainActivity extends AppCompatActivity {
         mSwitchEnableNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Prefs.setIsEnableNotification(buttonView.getContext(), isChecked);
-
                 if (isChecked) {
-                    HeadsetStateService.startService(buttonView.getContext());
+                    MuteServiceToggle.setEnable(getApplicationContext());
                 } else {
-                    HeadsetStateService.stopService(buttonView.getContext());
+                    MuteServiceToggle.setDisable(getApplicationContext());
                 }
             }
         });
-
     }
 }
