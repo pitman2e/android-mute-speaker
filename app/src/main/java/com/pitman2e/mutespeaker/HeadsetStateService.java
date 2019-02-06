@@ -40,14 +40,13 @@ public class HeadsetStateService extends Service {
         getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, volumeSettingContentObserver);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String NOTIFICATION_CHANNEL_ID = getPackageName();
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.getString(R.string.notification_mute_service_running), NotificationManager.IMPORTANCE_NONE);
+            NotificationChannel notificationChannel = new NotificationChannel(NotificationID.NOTIFICATION_CHANNEL_MISC, this.getString(R.string.notification_channel_miscellaneous), NotificationManager.IMPORTANCE_NONE);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NotificationID.NOTIFICATION_CHANNEL_MISC);
             Notification notification = notificationBuilder.setOngoing(true).build();
             startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
         }
