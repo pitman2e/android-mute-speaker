@@ -27,7 +27,7 @@ public class MuteServiceToggle {
 
         Intent enableMuteIntent = new Intent(context, MuteServiceToggleBroadcastReceiver.class);
         enableMuteIntent.putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, true);
-        PendingIntent enableMutePendingIntent = PendingIntent.getBroadcast(context, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent enableMutePendingIntent = PendingIntent.getBroadcast(context, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         CharSequence actionButtonText = context.getString(R.string.notification_action_enable);
         CharSequence titleText = context.getString(R.string.notification_mute_service_disabled);

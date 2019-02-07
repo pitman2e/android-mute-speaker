@@ -57,7 +57,7 @@ public class HeadsetStateService extends Service {
     private void createEnableMuteSpeakerNotification() {
         Intent enableMuteIntent = new Intent(this, MuteServiceToggleBroadcastReceiver.class);
         enableMuteIntent.putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false);
-        PendingIntent enableMutePendingIntent = PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent enableMutePendingIntent = PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         CharSequence titleText = this.getString(R.string.notification_mute_service_enabled);
         CharSequence actionButtonText = this.getString(R.string.notification_action_disable);
