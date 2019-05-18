@@ -18,7 +18,12 @@ public class HeadsetStateService extends Service {
 
     public static void startService(Context context) {
         Intent in = new Intent(context, HeadsetStateService.class);
-        context.startService(in);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(in);
+        } else {
+            context.startService(in);
+        }
     }
 
     public static void stopService(Context context) {
