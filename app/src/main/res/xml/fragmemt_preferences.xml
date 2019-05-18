@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:key="@string/PREFERENCES_ID_ENABLE_MUTE_SERVICE"
+        android:title="@string/PREFERENCES_TITLE_ENABLE_MUTE_SERVICE"
+        android:defaultValue="true"
+        />
+</PreferenceScreen>

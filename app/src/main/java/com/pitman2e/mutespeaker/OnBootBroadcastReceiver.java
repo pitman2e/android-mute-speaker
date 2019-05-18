@@ -10,12 +10,6 @@ public class OnBootBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.v(TAG, "Broadcast Received");
-
-        if (Prefs.getIsEnableNotification(context)) {
-            MuteServiceToggle.setEnable(context);
-        } else {
-            MuteServiceToggle.setDisable(context);
-        }
+        MuteServiceToggle.EnforceByPref(context);
     }
 }

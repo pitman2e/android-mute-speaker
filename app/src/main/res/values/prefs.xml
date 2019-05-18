@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="PREFERENCES_ID_ENABLE_MUTE_SERVICE">ENABLE_MUTE_SERVICE</string>
+    <string name="PREFERENCES_ID_ENABLE_SPEAKER_VOLUME">ENABLE_SPEAKER_VOLUME</string>
+    <string name="PREFERENCES_TITLE_ENABLE_MUTE_SERVICE">Enable Mute Service</string>
+</resources>

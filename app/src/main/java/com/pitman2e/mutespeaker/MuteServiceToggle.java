@@ -6,17 +6,27 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import android.preference.PreferenceManager;
+
+import androidx.core.app.NotificationCompat;
 
 import com.pitman2e.mutespeaker.constant.NotificationID;
 
 public class MuteServiceToggle {
-    public static void setEnable(Context context) {
+    public static void EnforceByPref(Context context) {
+        if (Prefs.getIsEnableNotification(context)) {
+            MuteServiceToggle.setEnable(context);
+        } else {
+            MuteServiceToggle.setDisable(context);
+        }
+    }
+
+    private static void setEnable(Context context) {
         Prefs.setIsEnableNotification(context, true);
         HeadsetStateService.startService(context);
     }
 
-    public static void setDisable(Context context) {
+    private static void setDisable(Context context) {
         Prefs.setIsEnableNotification(context, false);
         HeadsetStateService.stopService(context);
         createDisableMuteSpeakerNotification(context);
