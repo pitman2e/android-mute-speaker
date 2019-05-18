@@ -9,6 +9,7 @@ public class MuteServiceToggleBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Prefs.setIsEnableNotification(context, intent.getBooleanExtra(EXTRA_IS_ENABLED_MUTE_SERVICE, true));
         MuteServiceToggle.EnforceByPref(context);
     }
 }
