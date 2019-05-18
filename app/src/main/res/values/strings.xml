@@ -8,4 +8,5 @@
     <string name="notification_channel_miscellaneous">Miscellaneous</string>
     <string name="notification_action_enable">Enable</string>
     <string name="notification_action_disable">Disable</string>
+    <string name="notification_action_disable_with_volume">Disable w/ Vol</string>
 </resources>

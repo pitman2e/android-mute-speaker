@@ -8,4 +8,10 @@
         android:title="@string/PREFERENCES_TITLE_ENABLE_MUTE_SERVICE"
         android:defaultValue="true"
         />
+
+    <EditTextPreference
+        android:key="@string/PREFERENCES_ID_DISABLE_SPEAKER_VOLUME"
+        android:title="@string/PREFERENCES_TITLE_DISABLE_SPEAKER_VOLUME"
+        android:defaultValue="20"
+    />
 </PreferenceScreen>

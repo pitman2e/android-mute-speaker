@@ -63,10 +63,15 @@ public class HeadsetStateService extends Service {
     private void createEnableMuteSpeakerNotification() {
         Intent enableMuteIntent = new Intent(this, MuteServiceToggleBroadcastReceiver.class);
         enableMuteIntent.putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false);
-        PendingIntent enableMutePendingIntent = PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent disableMutePendingIntent = PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent disableMuteIntentWithVolume = new Intent(this, MuteServiceToggleBroadcastReceiver.class)
+                .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false)
+                .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE_WITH_VOLUME, true);
+        PendingIntent disableMuteWithVolumePendingIntent = PendingIntent.getBroadcast(this, 1, disableMuteIntentWithVolume, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        //Note that if the ReuqestCode is the same, android will consider these intent is the same.
 
         CharSequence titleText = this.getString(R.string.notification_mute_service_enabled);
-        CharSequence actionButtonText = this.getString(R.string.notification_action_disable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationID.createNotificationChannel(this, NotificationID.NOTIFICATION_CHANNEL_MISC);
 
@@ -75,7 +80,9 @@ public class HeadsetStateService extends Service {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setContentTitle(titleText)
                     .setOngoing(true)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, actionButtonText, enableMutePendingIntent);
+                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable), disableMutePendingIntent)
+                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable_with_volume), disableMuteWithVolumePendingIntent)
+                    ;
 
             notificationBuilder.setOngoing(true);
             Notification notification = notificationBuilder.build();
@@ -86,7 +93,9 @@ public class HeadsetStateService extends Service {
                     .setPriority(Notification.PRIORITY_LOW)
                     .setContentTitle(titleText)
                     .setOngoing(true)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, actionButtonText, enableMutePendingIntent);
+                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable), disableMutePendingIntent)
+                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable_with_volume), disableMuteWithVolumePendingIntent)
+                    ;
 
             notificationBuilder.setOngoing(true);
             Notification notification = notificationBuilder.build();
