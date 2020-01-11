@@ -9,9 +9,10 @@
         android:defaultValue="true"
         />
 
-    <EditTextPreference
+    <SeekBarPreference
         android:key="@string/PREFERENCES_ID_DISABLE_SPEAKER_VOLUME"
         android:title="@string/PREFERENCES_TITLE_DISABLE_SPEAKER_VOLUME"
         android:defaultValue="20"
+        android:max="100"
     />
 </PreferenceScreen>
