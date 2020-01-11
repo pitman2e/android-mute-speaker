@@ -27,4 +27,10 @@ public class PreferencesFragment  extends PreferenceFragmentCompat implements Sh
             }
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        PreferenceManager.getDefaultSharedPreferences(this.getActivity()).unregisterOnSharedPreferenceChangeListener(this);
+    }
 }
