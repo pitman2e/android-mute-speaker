@@ -9,9 +9,9 @@ import android.os.Handler;
 
 public class VolumeSettingContentObserver extends ContentObserver {
     //private int mPreviousVolume;
-    Context mContext;
+    private Context mContext;
 
-    public VolumeSettingContentObserver(Context context, Handler handler) {
+    VolumeSettingContentObserver(Context context, Handler handler) {
         super(handler);
         mContext = context;
 
@@ -30,6 +30,9 @@ public class VolumeSettingContentObserver extends ContentObserver {
 
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
+        if (audioManager == null) {
+            return;
+        }
         /*
         Determinate the volume is increased or decreased. <For reference only>
         int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -55,11 +58,16 @@ public class VolumeSettingContentObserver extends ContentObserver {
     private boolean isHeadphonesPlugged(){
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
+        if (audioManager == null) {
+            return false;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AudioDeviceInfo[] audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
             for (AudioDeviceInfo deviceInfo : audioDevices) {
                 if (deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
-                        || deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
+                        || deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET
+                ) {
                     return true;
                 }
             }

@@ -25,6 +25,10 @@ public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
 
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
+        if (audioManager == null) {
+            return;
+        }
+
         switch (intent.getAction()) {
             case Intent.ACTION_HEADSET_PLUG:
                 int headsetState = intent.getExtras().getInt("state");
