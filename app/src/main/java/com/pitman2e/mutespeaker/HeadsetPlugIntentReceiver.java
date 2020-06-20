@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.util.Log;
 
 public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
     private static final String TAG = HeadsetPlugIntentReceiver.class.getSimpleName();
@@ -35,11 +36,11 @@ public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
                 switch (headsetState) {
                     case HEADSET_STATE_UNPLUGGED:
                         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Toast.makeText(context, "Headset unplugged", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Headset unplugged");
                         break;
                     case HEADSET_STATE_PLUGGED:
                         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Toast.makeText(context, "Headset plugged", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Headset plugged");
                         break;
                 }
                 break;
