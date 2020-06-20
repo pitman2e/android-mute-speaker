@@ -3,6 +3,7 @@ package com.pitman2e.mutespeaker;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 

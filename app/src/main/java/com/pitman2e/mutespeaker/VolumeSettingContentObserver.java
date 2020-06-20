@@ -33,21 +33,6 @@ public class VolumeSettingContentObserver extends ContentObserver {
         if (audioManager == null) {
             return;
         }
-        /*
-        Determinate the volume is increased or decreased. <For reference only>
-        int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-        int delta = mPreviousVolume - currentVolume;
-
-        if(delta > 0)
-        {
-            mPreviousVolume = currentVolume;
-        }
-        else if(delta < 0)
-        {
-            mPreviousVolume = currentVolume;
-        }
-        */
 
         if (Prefs.getIsEnableNotification(mContext) && !isHeadphonesPlugged()) {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
