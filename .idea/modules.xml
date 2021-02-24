@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MuteSpeaker.iml" filepath="$PROJECT_DIR$/MuteSpeaker.iml" group="MuteSpeaker" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MuteSpeaker/app" />
+      <module fileurl="file://$PROJECT_DIR$/MuteSpeaker.iml" filepath="$PROJECT_DIR$/MuteSpeaker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MuteSpeaker.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MuteSpeaker.app.iml" />
     </modules>
   </component>
 </project>
