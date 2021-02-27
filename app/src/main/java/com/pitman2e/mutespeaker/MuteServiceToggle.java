@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+import androidx.preference.PreferenceManager;
 
 import com.pitman2e.mutespeaker.constant.NotificationID;
 
@@ -43,10 +44,14 @@ public class MuteServiceToggle {
 
         NotificationID.createNotificationChannel(context, NotificationID.NOTIFICATION_CHANNEL_MISC);
 
+        boolean isPrefPersistDisabledNotification =
+                PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST), false);
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NotificationID.NOTIFICATION_CHANNEL_MISC)
                 .setSmallIcon(R.drawable.ic_volume_up_black_24dp)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentTitle(titleText)
+                .setOngoing(isPrefPersistDisabledNotification)
                 .addAction(R.drawable.ic_volume_off_black_24dp, actionButtonText, enableMutePendingIntent);
 
         Notification notification = notificationBuilder.build();

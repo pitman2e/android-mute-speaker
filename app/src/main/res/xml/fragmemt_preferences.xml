@@ -9,6 +9,12 @@
         android:defaultValue="true"
         />
 
+    <SwitchPreference
+        android:key="@string/PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST"
+        android:title="@string/PREFERENCES_TITLE_DISABLE_NOTIFICATION_PERSIST"
+        android:defaultValue="false"
+        />
+
     <SeekBarPreference
         android:key="@string/PREFERENCES_ID_DISABLE_SPEAKER_VOLUME"
         android:title="@string/PREFERENCES_TITLE_DISABLE_SPEAKER_VOLUME"

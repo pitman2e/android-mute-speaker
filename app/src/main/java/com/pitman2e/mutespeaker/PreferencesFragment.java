@@ -21,8 +21,10 @@ public class PreferencesFragment  extends PreferenceFragmentCompat implements Sh
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         MuteServiceToggle.EnforceByPref(this.getActivity());
 
-        if (getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE).equals(key)) {
-            SwitchPreference switchPreference = findPreference(key);
+        if (getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE).equals(key)
+            || getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST).equals(key)
+        ) {
+            SwitchPreference switchPreference = findPreference(getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE));
             if (switchPreference != null) {
                 switchPreference.setChecked(getIsEnableNotification(this.getActivity()));
             }

@@ -2,6 +2,8 @@
 <resources>
     <string name="PREFERENCES_ID_ENABLE_MUTE_SERVICE">ENABLE_MUTE_SERVICE</string>
     <string name="PREFERENCES_ID_DISABLE_SPEAKER_VOLUME">DISABLE_SPEAKER_VOLUME</string>
+    <string name="PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST">DISABLE_NOTIFICATION_PERSIST</string>
     <string name="PREFERENCES_TITLE_ENABLE_MUTE_SERVICE">Enable Mute Service</string>
     <string name="PREFERENCES_TITLE_DISABLE_SPEAKER_VOLUME">Disable Speaker with Volume</string>
+    <string name="PREFERENCES_TITLE_DISABLE_NOTIFICATION_PERSIST">Persistent Notification when Disabled</string>
 </resources>
