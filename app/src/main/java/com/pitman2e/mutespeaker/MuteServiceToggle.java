@@ -41,27 +41,15 @@ public class MuteServiceToggle {
         CharSequence actionButtonText = context.getString(R.string.notification_action_enable);
         CharSequence titleText = context.getString(R.string.notification_mute_service_disabled);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationID.createNotificationChannel(context, NotificationID.NOTIFICATION_CHANNEL_MISC);
+        NotificationID.createNotificationChannel(context, NotificationID.NOTIFICATION_CHANNEL_MISC);
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NotificationID.NOTIFICATION_CHANNEL_MISC)
-                    .setSmallIcon(R.drawable.ic_volume_up_black_24dp)
-                    .setPriority(NotificationCompat.PRIORITY_LOW)
-                    .setContentTitle(titleText)
-                    .addAction(R.drawable.ic_volume_off_black_24dp, actionButtonText, enableMutePendingIntent);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NotificationID.NOTIFICATION_CHANNEL_MISC)
+                .setSmallIcon(R.drawable.ic_volume_up_black_24dp)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentTitle(titleText)
+                .addAction(R.drawable.ic_volume_off_black_24dp, actionButtonText, enableMutePendingIntent);
 
-            Notification notification = notificationBuilder.build();
-            notificationManager.notify(NotificationID.MUTE_SERVICE_RUNNING, notification);
-        } else {
-            Notification.Builder notificationBuilder = new Notification.Builder(context)
-                    .setSmallIcon(R.drawable.ic_volume_up_black_24dp)
-                    .setPriority(Notification.PRIORITY_LOW)
-                    .setContentTitle(titleText)
-                    .addAction(R.drawable.ic_volume_off_black_24dp, actionButtonText, enableMutePendingIntent)
-                    .setOngoing(true);
-
-            Notification notification = notificationBuilder.build();
-            notificationManager.notify(NotificationID.MUTE_SERVICE_RUNNING, notification);
-        }
+        Notification notification = notificationBuilder.build();
+        notificationManager.notify(NotificationID.MUTE_SERVICE_RUNNING, notification);
     }
 }
