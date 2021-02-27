@@ -69,37 +69,22 @@ public class HeadsetStateService extends Service {
                 .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false)
                 .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE_WITH_VOLUME, true);
         PendingIntent disableMuteWithVolumePendingIntent = PendingIntent.getBroadcast(this, 1, disableMuteIntentWithVolume, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-        //Note that if the ReuqestCode is the same, android will consider these intent is the same.
+        //Note that if the Request Code is the same, android will consider these intent is the same.
 
         CharSequence titleText = this.getString(R.string.notification_mute_service_enabled);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationID.createNotificationChannel(this, NotificationID.NOTIFICATION_CHANNEL_MISC);
+        NotificationID.createNotificationChannel(this, NotificationID.NOTIFICATION_CHANNEL_MISC);
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NotificationID.NOTIFICATION_CHANNEL_MISC)
-                    .setSmallIcon(R.drawable.ic_volume_off_black_24dp)
-                    .setPriority(NotificationCompat.PRIORITY_LOW)
-                    .setContentTitle(titleText)
-                    .setOngoing(true)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable), disableMutePendingIntent)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable_with_volume), disableMuteWithVolumePendingIntent)
-                    ;
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NotificationID.NOTIFICATION_CHANNEL_MISC)
+                .setSmallIcon(R.drawable.ic_volume_off_black_24dp)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentTitle(titleText)
+                .setOngoing(true)
+                .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable), disableMutePendingIntent)
+                .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable_with_volume), disableMuteWithVolumePendingIntent)
+                ;
 
-            notificationBuilder.setOngoing(true);
-            Notification notification = notificationBuilder.build();
-            this.startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
-        } else {
-            Notification.Builder notificationBuilder = new Notification.Builder(this)
-                    .setSmallIcon(R.drawable.ic_volume_off_black_24dp)
-                    .setPriority(Notification.PRIORITY_LOW)
-                    .setContentTitle(titleText)
-                    .setOngoing(true)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable), disableMutePendingIntent)
-                    .addAction(R.drawable.ic_volume_up_black_24dp, getString(R.string.notification_action_disable_with_volume), disableMuteWithVolumePendingIntent)
-                    ;
-
-            notificationBuilder.setOngoing(true);
-            Notification notification = notificationBuilder.build();
-            this.startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
-        }
+        notificationBuilder.setOngoing(true);
+        Notification notification = notificationBuilder.build();
+        this.startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
     }
 }
