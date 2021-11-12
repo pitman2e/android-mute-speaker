@@ -35,6 +35,7 @@ public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
                 int headsetState = intent.getExtras().getInt("state");
                 switch (headsetState) {
                     case HEADSET_STATE_UNPLUGGED:
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         Log.d(TAG, "Headset unplugged");
                         break;

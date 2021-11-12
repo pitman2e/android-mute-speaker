@@ -21,6 +21,7 @@ public class MuteServiceToggleBroadcastReceiver extends BroadcastReceiver {
             double volumePercentage = ((double)intVolumePercentage / 100);
 
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,  (int)(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * volumePercentage), 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
     }
 }

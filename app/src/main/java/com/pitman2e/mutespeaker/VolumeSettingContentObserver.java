@@ -36,6 +36,7 @@ public class VolumeSettingContentObserver extends ContentObserver {
 
         if (Prefs.getIsEnableNotification(mContext) && !isHeadphonesPlugged()) {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
 
     }
