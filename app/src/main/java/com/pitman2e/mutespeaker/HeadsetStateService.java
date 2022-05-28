@@ -3,8 +3,10 @@ package com.pitman2e.mutespeaker;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -16,6 +18,7 @@ import com.pitman2e.mutespeaker.constant.NotificationID;
 
 public class HeadsetStateService extends Service {
     private VolumeSettingContentObserver mVolumeSettingContentObserver;
+    private BroadcastReceiver receiver;
 
     public static void startService(Context context) {
         Intent in = new Intent(context, HeadsetStateService.class);
@@ -40,7 +43,7 @@ public class HeadsetStateService extends Service {
 
     @Override
     public void onCreate() {
-        HeadsetPlugIntentReceiver.registerIntent(this);
+        registerIntent();
 
         mVolumeSettingContentObserver = new VolumeSettingContentObserver(this, new Handler());
         getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, mVolumeSettingContentObserver);
@@ -56,6 +59,7 @@ public class HeadsetStateService extends Service {
 
     @Override
     public void onDestroy() {
+        unregisterIntent();
         getApplicationContext().getContentResolver().unregisterContentObserver(mVolumeSettingContentObserver);
         super.onDestroy();
     }
@@ -86,5 +90,17 @@ public class HeadsetStateService extends Service {
         notificationBuilder.setOngoing(true);
         Notification notification = notificationBuilder.build();
         this.startForeground(NotificationID.MUTE_SERVICE_RUNNING, notification);
+    }
+
+    public void registerIntent() {
+        IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        receiver = new HeadsetPlugIntentReceiver();
+        this.registerReceiver(receiver, receiverFilter);
+    }
+
+    public void unregisterIntent() {
+        if (receiver != null) {
+            this.unregisterReceiver(receiver);
+        }
     }
 }

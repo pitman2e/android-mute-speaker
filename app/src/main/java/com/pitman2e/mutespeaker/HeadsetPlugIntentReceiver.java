@@ -3,7 +3,6 @@ package com.pitman2e.mutespeaker;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.util.Log;
 
@@ -11,12 +10,6 @@ public class HeadsetPlugIntentReceiver extends BroadcastReceiver {
     private static final String TAG = HeadsetPlugIntentReceiver.class.getSimpleName();
     private static final int HEADSET_STATE_UNPLUGGED = 0;
     private static final int HEADSET_STATE_PLUGGED = 1;
-
-    public static void registerIntent(Context context) {
-        IntentFilter receiverFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        HeadsetPlugIntentReceiver receiver = new HeadsetPlugIntentReceiver();
-        context.registerReceiver(receiver, receiverFilter);
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
