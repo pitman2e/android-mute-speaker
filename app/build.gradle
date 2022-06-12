@@ -27,6 +27,10 @@ android {
     }
     buildToolsVersion '32.0.0'
     namespace 'com.pitman2e.mutespeaker'
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
