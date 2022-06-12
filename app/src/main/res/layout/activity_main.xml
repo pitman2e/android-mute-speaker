@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.pitman2e.mutespeaker.MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment"
         android:name="com.pitman2e.mutespeaker.PreferencesFragment"
         android:layout_width="match_parent"
