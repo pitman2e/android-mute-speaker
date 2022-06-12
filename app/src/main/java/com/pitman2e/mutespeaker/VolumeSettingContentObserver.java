@@ -58,6 +58,7 @@ public class VolumeSettingContentObserver extends ContentObserver {
                     || deviceInfo.getType() == AudioDeviceInfo.TYPE_BLUETOOTH_SCO
                     || deviceInfo.getType() == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP
                     || deviceInfo.getType() == AudioDeviceInfo.TYPE_AUX_LINE
+                    || deviceInfo.getType() == AudioDeviceInfo.TYPE_BLE_HEADSET
             ) {
                 return true;
             }
