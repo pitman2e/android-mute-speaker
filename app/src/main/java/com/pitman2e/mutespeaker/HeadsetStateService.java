@@ -67,12 +67,14 @@ public class HeadsetStateService extends Service {
     private void createEnableMuteSpeakerNotification() {
         Intent enableMuteIntent = new Intent(this, MuteServiceToggleBroadcastReceiver.class);
         enableMuteIntent.putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false);
-        PendingIntent disableMutePendingIntent = PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent disableMutePendingIntent =
+                PendingIntent.getBroadcast(this, 0, enableMuteIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Intent disableMuteIntentWithVolume = new Intent(this, MuteServiceToggleBroadcastReceiver.class)
                 .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, false)
                 .putExtra(MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE_WITH_VOLUME, true);
-        PendingIntent disableMuteWithVolumePendingIntent = PendingIntent.getBroadcast(this, 1, disableMuteIntentWithVolume, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent disableMuteWithVolumePendingIntent =
+                PendingIntent.getBroadcast(this, 1, disableMuteIntentWithVolume, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         //Note that if the Request Code is the same, android will consider these intent is the same.
 
         CharSequence titleText = this.getString(R.string.notification_mute_service_enabled);
