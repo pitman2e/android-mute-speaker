@@ -3,14 +3,14 @@ package com.github.pitman2e.mutespeaker
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 
 class PreferencesFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragmemt_preferences, rootKey)
-        PreferenceManager.getDefaultSharedPreferences(this.activity)
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
             .registerOnSharedPreferenceChangeListener(this)
         MuteServiceToggle.enforceByPref(this.activity)
     }
@@ -28,7 +28,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 
     override fun onStop() {
         super.onStop()
-        PreferenceManager.getDefaultSharedPreferences(this.activity)
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
             .unregisterOnSharedPreferenceChangeListener(this)
     }
 }
