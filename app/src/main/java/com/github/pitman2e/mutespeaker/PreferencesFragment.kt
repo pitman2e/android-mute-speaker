@@ -15,7 +15,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
         MuteServiceToggle.enforceByPref(this.activity)
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         MuteServiceToggle.enforceByPref(this.activity)
         if (getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE) == key || getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST) == key) {
             val switchPreference =
