@@ -17,12 +17,12 @@ object MuteServiceToggle {
         }
     }
 
-    private fun setEnable(context: Context?) {
+    fun setEnable(context: Context?) {
         Prefs.setIsEnableNotification(context, true)
         HeadsetStateService.startService(context)
     }
 
-    private fun setDisable(context: Context?) {
+    fun setDisable(context: Context?) {
         Prefs.setIsEnableNotification(context, false)
         HeadsetStateService.stopService(context)
         createDisableMuteSpeakerNotification(context)
