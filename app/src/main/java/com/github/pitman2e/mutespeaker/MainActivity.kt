@@ -3,7 +3,9 @@ package com.github.pitman2e.mutespeaker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -24,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -174,5 +177,16 @@ class MainActivity : ComponentActivity() {
     @Preview
     fun AppScreenPreview() {
         AppScreen()
+    }
+
+    @Composable
+    @Preview
+    fun SettingSwitch_LongText_Preview() {
+        Box(modifier = Modifier.background(Color.White)) {
+            SettingSwitch(text = "A very long text A very long text A very long text A very long text",
+                isChecked = true,
+                onCheckedChange = { }
+            )
+        }
     }
 }
