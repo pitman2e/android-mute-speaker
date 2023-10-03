@@ -22,6 +22,7 @@ android {
 
     buildTypes {
         release {
+            applicationIdSuffix = ".release"
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
