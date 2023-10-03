@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,12 +43,13 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun AppScreen() {
-        val prefMgr = PreferenceManager.getDefaultSharedPreferences(this@MainActivity)
+        val context = LocalContext.current
+        val prefMgr = PreferenceManager.getDefaultSharedPreferences(context)
 
         var isEnabledChecked by remember {
             mutableStateOf(
                 prefMgr.getBoolean(
-                    getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE), false
+                    context.getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE), false
                 )
             )
         }
@@ -55,7 +57,7 @@ class MainActivity : ComponentActivity() {
         var isPersistentChecked by remember {
             mutableStateOf(
                 prefMgr.getBoolean(
-                    getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST), false
+                    context.getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST), false
                 )
             )
         }
@@ -63,7 +65,7 @@ class MainActivity : ComponentActivity() {
         var sliderPosition by remember {
             mutableFloatStateOf(
                 prefMgr.getInt(
-                    getString(R.string.PREFERENCES_ID_DISABLE_SPEAKER_VOLUME),
+                    context.getString(R.string.PREFERENCES_ID_DISABLE_SPEAKER_VOLUME),
                     20
                 ).toFloat()
             )
@@ -87,9 +89,9 @@ class MainActivity : ComponentActivity() {
                         onCheckedChange = { isChecked ->
                             isEnabledChecked = isChecked
                             if (isChecked) {
-                                MuteServiceToggle.setEnable(this@MainActivity)
+                                MuteServiceToggle.setEnable(context)
                             } else {
-                                MuteServiceToggle.setDisable(this@MainActivity)
+                                MuteServiceToggle.setDisable(context)
                             }
                         })
                     SettingSwitch(
@@ -101,7 +103,7 @@ class MainActivity : ComponentActivity() {
                                 getString(R.string.PREFERENCES_ID_DISABLE_NOTIFICATION_PERSIST),
                                 isChecked
                             ).apply()
-                            MuteServiceToggle.enforceByPref(this@MainActivity)
+                            MuteServiceToggle.enforceByPref(context)
                         })
 
                     EnableVolumeSlider(
