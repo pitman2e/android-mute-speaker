@@ -167,7 +167,6 @@ class MainActivity : ComponentActivity() {
             Slider(
                 value = sliderPosition,
                 onValueChange = onValueChange,
-                steps = 100,
                 valueRange = 0f..100f
             )
         }
