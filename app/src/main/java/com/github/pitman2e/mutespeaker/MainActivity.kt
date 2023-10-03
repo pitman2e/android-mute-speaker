@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -131,19 +131,19 @@ class MainActivity : ComponentActivity() {
         isChecked: Boolean,
         onCheckedChange: (isChecked: Boolean) -> Unit
     ) {
-        FlowRow(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Column() {
-                Text(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    text = text,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
+            Text(
+                modifier = Modifier
+                    .padding(vertical = 12.dp)
+                    .weight(weight = 1f, fill = false),
+                text = text,
+                style = MaterialTheme.typography.titleMedium,
+            )
             Switch(checked = isChecked, onCheckedChange = onCheckedChange)
         }
     }
@@ -177,6 +177,17 @@ class MainActivity : ComponentActivity() {
     @Preview
     fun AppScreenPreview() {
         AppScreen()
+    }
+
+    @Composable
+    @Preview
+    fun SettingSwitch_ShortText_Preview() {
+        Box(modifier = Modifier.background(Color.White)) {
+            SettingSwitch(text = "Short Text",
+                isChecked = true,
+                onCheckedChange = { }
+            )
+        }
     }
 
     @Composable
