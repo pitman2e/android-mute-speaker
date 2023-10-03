@@ -20,7 +20,7 @@ class HeadsetPlugIntentReceiver : BroadcastReceiver() {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         when (intent.action) {
             Intent.ACTION_HEADSET_PLUG -> {
-                when (intent.extras!!.getInt("state")) {
+                when (intent.extras?.getInt("state")) {
                     HEADSET_STATE_UNPLUGGED -> {
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
                         audioManager.adjustStreamVolume(

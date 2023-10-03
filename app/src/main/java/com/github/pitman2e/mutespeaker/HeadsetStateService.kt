@@ -15,23 +15,24 @@ import com.github.pitman2e.mutespeaker.constant.NotificationID
 
 class HeadsetStateService : Service() {
     companion object {
-        fun startService(context: Context?) {
-            val `in` = Intent(context, HeadsetStateService::class.java)
+        fun startService(context: Context) {
+            val intent = Intent(context, HeadsetStateService::class.java)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context!!.startForegroundService(`in`)
+                context.startForegroundService(intent)
             } else {
-                context!!.startService(`in`)
+                context.startService(intent)
             }
         }
 
-        fun stopService(context: Context?) {
-            val `in` = Intent(context, HeadsetStateService::class.java)
-            context!!.stopService(`in`)
+        fun stopService(context: Context) {
+            val intent = Intent(context, HeadsetStateService::class.java)
+            context.stopService(intent)
         }
     }
 
-    private var mVolumeSettingContentObserver: VolumeSettingContentObserver? = null
-    private var receiver: BroadcastReceiver? = null
+    private lateinit var mVolumeSettingContentObserver: VolumeSettingContentObserver
+    private lateinit var receiver: BroadcastReceiver
+
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
@@ -40,7 +41,7 @@ class HeadsetStateService : Service() {
         registerIntent()
         mVolumeSettingContentObserver = VolumeSettingContentObserver(this, Handler())
         applicationContext.contentResolver.registerContentObserver(
-            Settings.System.CONTENT_URI, true, mVolumeSettingContentObserver!!
+            Settings.System.CONTENT_URI, true, mVolumeSettingContentObserver
         )
         createEnableMuteSpeakerNotification()
         super.onCreate()
@@ -52,7 +53,7 @@ class HeadsetStateService : Service() {
 
     override fun onDestroy() {
         unregisterIntent()
-        applicationContext.contentResolver.unregisterContentObserver(mVolumeSettingContentObserver!!)
+        applicationContext.contentResolver.unregisterContentObserver(mVolumeSettingContentObserver)
         super.onDestroy()
     }
 
@@ -109,8 +110,6 @@ class HeadsetStateService : Service() {
     }
 
     private fun unregisterIntent() {
-        if (receiver != null) {
-            unregisterReceiver(receiver)
-        }
+        unregisterReceiver(receiver)
     }
 }

@@ -9,7 +9,7 @@ import androidx.preference.PreferenceManager
 import com.github.pitman2e.mutespeaker.constant.NotificationID
 
 object MuteServiceToggle {
-    fun enforceByPref(context: Context?) {
+    fun enforceByPref(context: Context) {
         if (Prefs.getIsEnableNotification(context)) {
             setEnable(context)
         } else {
@@ -17,20 +17,20 @@ object MuteServiceToggle {
         }
     }
 
-    fun setEnable(context: Context?) {
+    fun setEnable(context: Context) {
         Prefs.setIsEnableNotification(context, true)
         HeadsetStateService.startService(context)
     }
 
-    fun setDisable(context: Context?) {
+    fun setDisable(context: Context) {
         Prefs.setIsEnableNotification(context, false)
         HeadsetStateService.stopService(context)
         createDisableMuteSpeakerNotification(context)
     }
 
-    private fun createDisableMuteSpeakerNotification(context: Context?) {
+    private fun createDisableMuteSpeakerNotification(context: Context) {
         val notificationManager =
-            context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val enableMuteIntent = Intent(context, MuteServiceToggleBroadcastReceiver::class.java)
         enableMuteIntent.putExtra(
             MuteServiceToggleBroadcastReceiver.EXTRA_IS_ENABLED_MUTE_SERVICE, true
