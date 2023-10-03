@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.github.pitman2e.mutespeaker.constant.NotificationID
@@ -20,6 +21,8 @@ object MuteServiceToggle {
     fun setEnable(context: Context) {
         Prefs.setIsEnableNotification(context, true)
         HeadsetStateService.startService(context)
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
     }
 
     fun setDisable(context: Context) {
