@@ -39,6 +39,7 @@ import kotlin.math.roundToInt
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MuteServiceToggle.enforceByPref(this)
         setContent {
             AppScreen()
         }
