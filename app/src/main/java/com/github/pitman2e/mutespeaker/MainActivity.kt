@@ -20,6 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.preference.PreferenceManager
+import com.chargingwatts.chargingalarm.util.preference.booleanLiveData
 import com.github.pitman2e.mutespeaker.ui.theme.MuteSpeakerTheme
 import kotlin.math.roundToInt
 
@@ -48,13 +50,9 @@ class MainActivity : ComponentActivity() {
         val context = LocalContext.current
         val prefMgr = PreferenceManager.getDefaultSharedPreferences(context)
 
-        var isEnabledChecked by remember {
-            mutableStateOf(
-                prefMgr.getBoolean(
-                    context.getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE), false
-                )
-            )
-        }
+        val isEnabledChecked = prefMgr
+            .booleanLiveData(context.getString(R.string.PREFERENCES_ID_ENABLE_MUTE_SERVICE) , false)
+            .observeAsState(false)
 
         var isPersistentChecked by remember {
             mutableStateOf(
@@ -87,9 +85,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     SettingSwitch(
                         text = stringResource(id = R.string.PREFERENCES_TITLE_ENABLE_MUTE_SERVICE),
-                        isChecked = isEnabledChecked,
+                        isChecked = isEnabledChecked.value,
                         onCheckedChange = { isChecked ->
-                            isEnabledChecked = isChecked
                             if (isChecked) {
                                 MuteServiceToggle.setEnable(context)
                             } else {
