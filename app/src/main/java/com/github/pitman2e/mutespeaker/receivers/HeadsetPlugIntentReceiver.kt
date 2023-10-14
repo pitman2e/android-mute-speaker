@@ -1,10 +1,11 @@
-package com.github.pitman2e.mutespeaker
+package com.github.pitman2e.mutespeaker.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.util.Log
+import com.github.pitman2e.mutespeaker.Prefs
 
 class HeadsetPlugIntentReceiver : BroadcastReceiver() {
     companion object {

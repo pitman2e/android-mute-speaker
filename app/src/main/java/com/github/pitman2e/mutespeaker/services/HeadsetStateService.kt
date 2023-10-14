@@ -1,4 +1,4 @@
-package com.github.pitman2e.mutespeaker
+package com.github.pitman2e.mutespeaker.services
 
 import android.app.PendingIntent
 import android.app.Service
@@ -11,7 +11,11 @@ import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
 import androidx.core.app.NotificationCompat
+import com.github.pitman2e.mutespeaker.R
+import com.github.pitman2e.mutespeaker.VolumeSettingContentObserver
 import com.github.pitman2e.mutespeaker.constant.NotificationID
+import com.github.pitman2e.mutespeaker.receivers.HeadsetPlugIntentReceiver
+import com.github.pitman2e.mutespeaker.receivers.MuteServiceToggleBroadcastReceiver
 
 class HeadsetStateService : Service() {
     companion object {

@@ -1,10 +1,13 @@
-package com.github.pitman2e.mutespeaker
+package com.github.pitman2e.mutespeaker.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import androidx.preference.PreferenceManager
+import com.github.pitman2e.mutespeaker.MuteServiceToggle
+import com.github.pitman2e.mutespeaker.Prefs
+import com.github.pitman2e.mutespeaker.R
 
 class MuteServiceToggleBroadcastReceiver : BroadcastReceiver() {
     companion object {

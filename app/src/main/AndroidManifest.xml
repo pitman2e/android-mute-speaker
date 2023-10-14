@@ -25,15 +25,15 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".HeadsetStateService" />
+        <service android:name=".services.HeadsetStateService" />
 
         <receiver
-            android:name=".OnBootBroadcastReceiver"
+            android:name=".receivers.OnBootBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".MuteServiceToggleBroadcastReceiver" />
+        <receiver android:name=".receivers.MuteServiceToggleBroadcastReceiver" />
     </application>
 </manifest>

@@ -8,6 +8,8 @@ import android.media.AudioManager
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.github.pitman2e.mutespeaker.constant.NotificationID
+import com.github.pitman2e.mutespeaker.receivers.MuteServiceToggleBroadcastReceiver
+import com.github.pitman2e.mutespeaker.services.HeadsetStateService
 
 object MuteServiceToggle {
     fun enforceByPref(context: Context) {
