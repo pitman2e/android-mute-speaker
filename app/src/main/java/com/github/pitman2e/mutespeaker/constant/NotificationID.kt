@@ -11,10 +11,10 @@ import com.github.pitman2e.mutespeaker.R
 object NotificationID {
     const val NOTIFICATION_CHANNEL_MISC = "NOTIFICATION_CHANNEL_MISC"
     const val MUTE_SERVICE_RUNNING = 1
-    fun createNotificationChannel(context: Context?, notificationId: String?) {
+    fun createNotificationChannel(context: Context, notificationId: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
-                context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             if (notificationManager.getNotificationChannel(notificationId) != null) {
                 return
             }
