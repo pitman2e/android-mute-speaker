@@ -21,8 +21,10 @@ object MuteServiceToggle {
     fun setEnable(context: Context) {
         Prefs.setIsEnableNotification(context, true)
         HeadsetStateService.startService(context)
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+        if (!Util.isHeadphonesPlugged(context)) {
+            val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+        }
     }
 
     fun setDisable(context: Context) {
