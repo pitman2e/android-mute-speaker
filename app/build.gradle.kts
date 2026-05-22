@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.github.pitman2e.mutespeaker"
-    compileSdk = 34
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.github.pitman2e.mutespeaker"
