@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "804814320545",
+    "project_id": "mute-speaker-497209",
+    "storage_bucket": "mute-speaker-497209.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804814320545:android:d5e9f84d270185961011e0",
+        "android_client_info": {
+          "package_name": "com.github.pitman2e.mutespeaker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHxGzIQas5nh6dsZg8kl3vWHOtsS78lbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
