@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.android.build.api.dsl.ApplicationExtension
 
 plugins {
     id("com.android.application")
@@ -6,7 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-android {
+extensions.configure<ApplicationExtension> {
     namespace = "com.github.pitman2e.mutespeaker"
     compileSdk = 37
 
