@@ -77,4 +77,8 @@ dependencies {
     // Firebase SDK for Google Analytics
     implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    // Jetpack WorkManager
+    val workVersion = "2.11.2"
+    implementation("androidx.work:work-runtime-ktx:${workVersion}")
 }
