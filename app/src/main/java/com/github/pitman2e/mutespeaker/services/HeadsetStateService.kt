@@ -47,11 +47,11 @@ class HeadsetStateService : Service() {
         applicationContext.contentResolver.registerContentObserver(
             Settings.System.CONTENT_URI, true, mVolumeSettingContentObserver
         )
-        createEnableMuteSpeakerNotification()
         super.onCreate()
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        createEnableMuteSpeakerNotification()
         return super.onStartCommand(intent, flags, startId)
     }
 

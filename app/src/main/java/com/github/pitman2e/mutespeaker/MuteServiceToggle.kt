@@ -7,9 +7,14 @@ import android.content.Intent
 import android.media.AudioManager
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.github.pitman2e.mutespeaker.constant.NotificationID
 import com.github.pitman2e.mutespeaker.receivers.MuteServiceToggleBroadcastReceiver
-import com.github.pitman2e.mutespeaker.services.HeadsetStateService
+import com.github.pitman2e.mutespeaker.workers.ServiceKeepaliveWorker
+import java.util.concurrent.TimeUnit
 
 object MuteServiceToggle {
     fun enforceByPref(context: Context) {
@@ -22,20 +27,31 @@ object MuteServiceToggle {
 
     fun setEnable(context: Context) {
         Prefs.setIsEnableNotification(context, true)
-        HeadsetStateService.startService(context)
         if (!Util.isHeadphonesPlugged(context)) {
             val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
         }
+        scheduleServiceKeepaliveWorker(context)
     }
 
     fun setDisable(context: Context) {
         Prefs.setIsEnableNotification(context, false)
-        HeadsetStateService.stopService(context)
-        createDisableMuteSpeakerNotification(context)
+        scheduleServiceKeepaliveWorker(context)
     }
 
-    private fun createDisableMuteSpeakerNotification(context: Context) {
+    fun scheduleServiceKeepaliveWorker(context: Context) {
+        val periodicWorkRequest: PeriodicWorkRequest =
+            PeriodicWorkRequestBuilder<ServiceKeepaliveWorker>(12, TimeUnit.HOURS)
+                .build()
+
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "ServiceKeepaliveWorker",
+            ExistingPeriodicWorkPolicy.REPLACE,
+            periodicWorkRequest
+        )
+    }
+
+    fun createDisableMuteSpeakerNotification(context: Context) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val enableMuteIntent = Intent(context, MuteServiceToggleBroadcastReceiver::class.java)
