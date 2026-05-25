@@ -23,6 +23,25 @@
           "other_platform_oauth_client": []
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804814320545:android:394a3e00bd2cb7301011e0",
+        "android_client_info": {
+          "package_name": "com.github.pitman2e.mutespeaker.release"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHxGzIQas5nh6dsZg8kl3vWHOtsS78lbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
     }
   ],
   "configuration_version": "1"
