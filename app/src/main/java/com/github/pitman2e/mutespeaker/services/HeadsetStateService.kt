@@ -43,7 +43,7 @@ class HeadsetStateService : Service() {
 
     override fun onCreate() {
         registerIntent()
-        mVolumeSettingContentObserver = VolumeSettingContentObserver(this, Handler())
+        mVolumeSettingContentObserver = VolumeSettingContentObserver(this, Handler(Looper.getMainLooper()))
         applicationContext.contentResolver.registerContentObserver(
             Settings.System.CONTENT_URI, true, mVolumeSettingContentObserver
         )
