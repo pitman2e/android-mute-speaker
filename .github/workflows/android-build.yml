@@ -1,0 +1,64 @@
+name: Generate Android Artifacts
+
+env:
+  main_project_module: app
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Change Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Run Tests and Build Artifacts
+        run: ./gradlew test assembleDebug assembleRelease :${{ env.main_project_module }}:bundleRelease
+
+      - name: Upload APK Debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.ref_name }}-debug-apk
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+
+      - name: Upload APK Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.ref_name }}-release-apk
+          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+
+      - name: Extract versionName from build.gradle.kts
+        id: get_version
+        run: |
+          VERSION=$(grep "versionName" ${{ env.main_project_module }}/build.gradle.kts | sed 's/.*versionName\s*=\s*"\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+            ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+            ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: "${{ env.VERSION }}"
+          tag: "${{ env.VERSION }}"
+          body: ${{ github.event.head_commit.message }}
+          draft: true
+          prerelease: false
+          allowUpdates: false
