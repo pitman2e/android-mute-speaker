@@ -36,13 +36,24 @@ extensions.configure<ApplicationExtension> {
             )
         }
     }
+
+    androidComponents.onVariants { variant ->
+        variant.outputs.forEach { output ->
+            val versionName = output.versionName.get()
+            val outputFileName = "${versionName}-MuteSpeaker-${variant.name}.apk"
+            output.outputFileName.set(outputFileName)
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         compose = true
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
