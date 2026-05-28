@@ -9,7 +9,6 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import android.provider.Settings
 import androidx.core.app.NotificationCompat
 import com.github.pitman2e.mutespeaker.R
